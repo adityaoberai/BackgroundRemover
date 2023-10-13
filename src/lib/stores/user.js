@@ -31,10 +31,15 @@ async function logout() {
   goto("/");
 }
 
+async function createJWT () {
+  return (await account.createJWT()).jwt;
+}
+
 export const user = {
   subscribe: store.subscribe, 
   register,
   login,
   logout,
   init,
+  createJWT
 };
