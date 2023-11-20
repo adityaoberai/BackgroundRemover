@@ -10,10 +10,19 @@
         user.init();
     });
 
+    function onImageSelected() {
+        document.querySelector('.inputtedImageContainer').style.visibility = "visible";
+        document.querySelector('.outputtedImageContainer').style.visibility = "hidden";
+        var selectedFile = document.querySelector('#imageInputField').files[0];
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL(selectedFile);
+        fileReader.onload = () => document.querySelector("#inputtedImage").src = fileReader.result;
+    }
+
     async function getImage() {
-        document.getElementById('imageOutput').src = "";
-        var image = document.querySelector('#imageInput').files[0];
-        
+        var image = document.querySelector('#imageInputField').files[0];
+
+        alert("Uploading image...")
         var inputImage = await storage.createFile('input',
             ID.unique(),
             image
@@ -21,8 +30,7 @@
 
         var inputImageUrl = storage.getFileView('input', inputImage.$id).href;
 
-        console.log(inputImageUrl);
-
+        alert("Removing background...");
         fetch('/app/remove', {
             method: 'POST',
             headers: {
@@ -32,20 +40,17 @@
                 imageUrl: inputImageUrl 
             })
         })
-        .then(res => {
-            console.log(res);
-            return res.blob();
-        })
+        .then(res => res.blob())
         .then(blob => {
             var url = URL.createObjectURL(blob);
-            console.log(url);
-            document.getElementById('imageOutput').src = url;
-        });
-        
+            document.querySelector('.outputtedImageContainer').style.visibility = "visible";
+            document.querySelector('#outputtedImage').src = url;
+        })
+        .then(() => alert("Background removed!"));
     }
 
     async function uploadOutput() {
-        var outputImageSource = await fetch(document.getElementById('imageOutput').src);
+        var outputImageSource = await fetch(document.getElementById('outputtedImage').src);
         var outputImageBlob = await outputImageSource.blob();
         var outputImageFile = new File([outputImageBlob], 'output.png');
         
@@ -64,23 +69,73 @@
 <h1>Remove Background</h1>
 
 <form on:submit={getImage}>
-    <input type="file" id="imageInput">
+    <input type="file" id="imageInputField" on:change={onImageSelected}>
 
     <button type="submit">Submit</button>
 </form>
 
-
 <br><br>
 
-<img id="imageOutput" src="" width="600" alt="">
+<div class="imagesContainer">
+    <div class="inputtedImageContainer">
+        <p>Inputted Image</p>
+        <img id="inputtedImage" src="" alt="">
+    </div>
+    <div class="outputtedImageContainer">
+        <p>Outputted Image</p>
+        <img id="outputtedImage" src="" alt="">
+        <br>
+        <form on:submit={uploadOutput}>
+            <button type="submit">Upload To Account</button>
+        </form>
+    </div>
+    
+</div>
 
 <br><br>
-
-<form on:submit={uploadOutput}>
-    <button type="submit">Upload To Account</button>
-</form>
-
 
 <footer>
     <button on:click={() => user.logout()}>Sign out</button>
 </footer>
+
+<style>
+    #imageInputField {
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    .imagesContainer {
+        display: flex;
+    }
+
+    .inputtedImageContainer {
+        visibility: hidden;
+        margin: 0 1rem;
+    }
+
+    .outputtedImageContainer {
+        visibility: hidden;
+        margin: 0 1rem;
+    }
+
+    #inputtedImage {
+        display: block;
+        max-height: 400px;
+    }
+
+    #outputtedImage  {
+        display: block;
+        max-height: 400px;
+        margin: 0 1rem;
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background: #eee;
+        text-align: center;
+    }
+</style>
