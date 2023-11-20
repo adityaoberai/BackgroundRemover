@@ -28,6 +28,6 @@ export async function POST({ request }) {
             }
         });
     } catch (err) {
-        throw error(400, err.message);
+        throw Response(400, err.message);
     }
 }

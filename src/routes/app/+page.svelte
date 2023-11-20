@@ -23,7 +23,7 @@
 
         console.log(inputImageUrl);
 
-        fetch('/api', {
+        fetch('/app/remove', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -49,7 +49,10 @@
         var outputImageBlob = await outputImageSource.blob();
         var outputImageFile = new File([outputImageBlob], 'output.png');
         
-        var outputImage = await storage.createFile('output', ID.unique(), outputImageFile);
+        var outputImage = await storage.createFile('output', 
+            ID.unique(), 
+            outputImageFile
+        );
 
         var outputImageUrl = storage.getFileView('output', outputImage.$id).href;
 
