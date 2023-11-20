@@ -3,37 +3,61 @@
 
     import { user } from "$lib/stores/user";
     import { onMount } from "svelte";
-    import { functions } from "$lib/appwrite";
+    import { storage } from "$lib/appwrite";
+	import { ID } from "appwrite";
 
     onMount(() => {
         user.init();
     });
 
     async function getImage() {
-        var jwt = await user.createJWT();
-        console.log(jwt);
-        var functionUrl = "https://65296d5195d6ad4e14bb.appwrite.global/";
-
+        document.getElementById('imageOutput').src = null;
         var image = document.querySelector('#imageInput').files[0];
+        
+        var inputImage = await storage.createFile('input',
+            ID.unique(),
+            image
+        );
 
-        var imageResponse = await fetch(functionUrl, {
+        var inputImageUrl = storage.getFileView('input', inputImage.$id).href;
+
+        console.log(inputImageUrl);
+
+        fetch('/api', {
             method: 'POST',
-            body: image,
             headers: {
-                'Content-Type': 'application/octet-stream',
-                'X-Appwrite-JWT': jwt,
-                'X-Appwrite-Project': 'bgremover',
-                'X-Appwrite-Response-Format': '1.4.0',
-                'Access-Control-Allow-Credentials': window.location.hostname
-            }
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                imageUrl: inputImageUrl 
+            })
+        })
+        .then(res => {
+            console.log(res);
+            return res.blob();
+        })
+        .then(blob => {
+            console.log(blob.size);
+            var url = URL.createObjectURL(blob);
+            console.log(url);
+            document.getElementById('imageOutput').src = url;
         });
-        console.log(await imageResponse.json());
+        
     }
 </script>
 
 <h1>Remove Background</h1>
 
-<input type="file" id="imageInput" on:change={() => getImage()}>
+<form on:submit={() => getImage()}>
+    <input type="file" id="imageInput">
+
+    <button type="submit">Submit</button>
+</form>
+
+
+<br><br>
+
+<img id="imageOutput" src="" width="600" alt="">
 
 <footer>
     <button on:click={() => user.logout()}>Sign out</button>
