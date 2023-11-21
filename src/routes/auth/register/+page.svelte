@@ -1,5 +1,5 @@
 <script>
-    import { user } from "$lib/stores/user";
+    import { user } from "$lib/user";
 
     let name = "";
     let email = "";

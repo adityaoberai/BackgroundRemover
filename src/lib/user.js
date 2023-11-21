@@ -31,8 +31,14 @@ async function logout() {
   goto("/");
 }
 
-async function createJWT () {
-  return (await account.createJWT()).jwt;
+async function createRecovery(email) {
+  await account.createRecovery(email, import.meta.env.VITE_APP_URL + "/auth/reset/complete");
+  alert("Check your email for a recovery link");
+}
+
+async function updateRecovery(userId, secret, password, confirmPassword) {
+  await account.updateRecovery(userId, secret, password, confirmPassword);
+  goto("/auth/login");
 }
 
 export const user = {
@@ -41,5 +47,6 @@ export const user = {
   login,
   logout,
   init,
-  createJWT
+  createRecovery,
+  updateRecovery
 };

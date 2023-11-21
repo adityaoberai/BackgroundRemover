@@ -1,7 +1,8 @@
 <script>
 // @ts-nocheck
 
-    import { user } from "$lib/stores/user";
+    import { user } from "$lib/user";
+    import { imageDb } from "$lib/imagedb";
     import { onMount } from "svelte";
     import { storage } from "$lib/appwrite";
 	import { ID } from "appwrite";
@@ -50,7 +51,7 @@
     }
 
     async function uploadOutput() {
-        var outputImageSource = await fetch(document.getElementById('outputtedImage').src);
+        var outputImageSource = await fetch(document.querySelector('#outputtedImage').src);
         var outputImageBlob = await outputImageSource.blob();
         var outputImageFile = new File([outputImageBlob], 'output.png');
         
@@ -58,6 +59,9 @@
             ID.unique(), 
             outputImageFile
         );
+
+        var imageDocument = await imageDb.addImage($user.$id, outputImage.$id);
+        console.log(imageDocument);
 
         var outputImageUrl = storage.getFileView('output', outputImage.$id).href;
 
