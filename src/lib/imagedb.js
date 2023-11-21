@@ -1,17 +1,18 @@
 // @ts-nocheck
 import { ID, Query } from "appwrite";
 import { databases } from "$lib/appwrite";
+import { user } from "./user";
+import { get } from "svelte/store";
 
-async function listImages(userId, limit, page) {
-  return await databases.listDocuments('imagedb', 
+async function listImages() {
+  var imageList = await databases.listDocuments('imagedb', 
     'images',
     [
-      Query.equalTo('userId', userId),
-      Query.limit(limit),
-      Query.offset(page*limit),
       Query.orderDesc('$createdAt')
     ]
   );
+  console.log(imageList);
+  return imageList.documents;
 }
 
 async function addImage(userId, imageId) {
@@ -25,7 +26,16 @@ async function addImage(userId, imageId) {
   );
 }
 
+async function deleteImage(documentId) {
+  await databases.deleteDocument('imagedb',
+    'images',
+    documentId
+  ); 
+  location.reload();
+}
+
 export const imageDb = {
   listImages,
-  addImage
-};
+  addImage,
+  deleteImage
+}

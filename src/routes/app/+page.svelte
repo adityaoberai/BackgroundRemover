@@ -3,13 +3,9 @@
 
     import { user } from "$lib/user";
     import { imageDb } from "$lib/imagedb";
-    import { onMount } from "svelte";
     import { storage } from "$lib/appwrite";
-	import { ID } from "appwrite";
-
-    onMount(() => {
-        user.init();
-    });
+	import { ID, Permission, Role } from "appwrite";
+    import NavBar from "../../components/NavBar.svelte";
 
     function onImageSelected() {
         document.querySelector('.inputtedImageContainer').style.visibility = "visible";
@@ -57,7 +53,8 @@
         
         var outputImage = await storage.createFile('output', 
             ID.unique(), 
-            outputImageFile
+            outputImageFile,
+            [Permission.write(Role.user($user.$id)), Permission.read(Role.user($user.$id))]
         );
 
         var imageDocument = await imageDb.addImage($user.$id, outputImage.$id);
@@ -69,6 +66,8 @@
         
     }
 </script>
+
+<NavBar />
 
 <h1>Remove Background</h1>
 
@@ -90,7 +89,7 @@
         <img id="outputtedImage" src="" alt="">
         <br>
         <form on:submit={uploadOutput}>
-            <button type="submit">Upload To Account</button>
+            <button type="submit">Save To Profile</button>
         </form>
     </div>
     
