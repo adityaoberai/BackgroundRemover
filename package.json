@@ -27,7 +27,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"appwrite": "^13.0.0",
-		"node-appwrite": "^11.0.0"
+		"appwrite": "^13.0.0"
 	}
 }
