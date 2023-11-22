@@ -12,10 +12,7 @@ const createUser = () => {
 		try {
 			store.set(await account.get());
 		} catch (e) {
-			store.set(null);
-      if(browser) {
-        goto("/auth/login")
-      }
+			goto("/auth/login")
 		}
 	}
 
