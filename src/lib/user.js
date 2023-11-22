@@ -52,6 +52,10 @@ const createUser = () => {
     goto("/auth/login");
   }
 
+  async function updatePassword(oldPassword, newPassword) {
+    await account.updatePassword(newPassword, oldPassword);
+  }
+
   return {
     subscribe: store.subscribe, 
     register,
@@ -59,7 +63,8 @@ const createUser = () => {
     logout,
     init,
     createRecovery,
-    updateRecovery
+    updateRecovery,
+    updatePassword
   }
 }
 

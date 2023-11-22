@@ -5,8 +5,6 @@
 	import NavBar from "../../components/NavBar.svelte";
 
     export let data;
-    
-    console.log(data);
 </script>
 
 <NavBar />
@@ -15,6 +13,16 @@
 
 <h2>Saved Images</h2>
 
-{#each data.images as image}
-    <ImageCard image={image} />
-{/each}
+<div class="savedImagesContainer">
+    {#each data.images as image}
+        <ImageCard image={image} />
+    {/each}
+</div>
+
+<style>
+    .savedImagesContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+</style>

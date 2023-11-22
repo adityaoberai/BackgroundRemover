@@ -7,6 +7,8 @@
 	import { ID, Permission, Role } from "appwrite";
     import NavBar from "../../components/NavBar.svelte";
 
+    var outputImage = null;
+
     function onImageSelected() {
         document.querySelector('.inputtedImageContainer').style.visibility = "visible";
         document.querySelector('.outputtedImageContainer').style.visibility = "hidden";
@@ -39,32 +41,25 @@
         })
         .then(res => res.blob())
         .then(blob => {
-            var url = URL.createObjectURL(blob);
-            document.querySelector('.outputtedImageContainer').style.visibility = "visible";
-            document.querySelector('#outputtedImage').src = url;
+            alert("Saving output to profile...");
+            return storage.createFile('output', 
+                ID.unique(), 
+                new File([blob], 'output.png'),
+                [Permission.write(Role.user($user.$id)), Permission.read(Role.user($user.$id))]
+            );
         })
-        .then(() => alert("Background removed!"));
+        .then(createdImage => {
+            outputImage = createdImage;
+            imageDb.addImage($user.$id, outputImage.$id);
+            document.querySelector('.outputtedImageContainer').style.visibility = "visible";
+            document.querySelector('#outputtedImage').src = storage.getFileView('output', outputImage.$id);
+            alert("Background removed!")
+        });
     }
 
-    async function uploadOutput() {
-        var outputImageSource = await fetch(document.querySelector('#outputtedImage').src);
-        var outputImageBlob = await outputImageSource.blob();
-        var outputImageFile = new File([outputImageBlob], 'output.png');
-        
-        var outputImage = await storage.createFile('output', 
-            ID.unique(), 
-            outputImageFile,
-            [Permission.write(Role.user($user.$id)), Permission.read(Role.user($user.$id))]
-        );
-
-        var imageDocument = await imageDb.addImage($user.$id, outputImage.$id);
-        console.log(imageDocument);
-
-        var outputImageUrl = storage.getFileView('output', outputImage.$id).href;
-
-        alert(outputImageUrl);
-        
-    }
+    async function downloadImage() {
+        window.open(storage.getFileDownload('output', outputImage.$id));
+    }    
 </script>
 
 <NavBar />
@@ -88,18 +83,13 @@
         <p>Outputted Image</p>
         <img id="outputtedImage" src="" alt="">
         <br>
-        <form on:submit={uploadOutput}>
-            <button type="submit">Save To Profile</button>
+        <form on:submit={downloadImage}>
+            <button type="submit">Download Image</button>
         </form>
     </div>
-    
 </div>
 
 <br><br>
-
-<footer>
-    <button on:click={() => user.logout()}>Sign out</button>
-</footer>
 
 <style>
     #imageInputField {
@@ -109,6 +99,8 @@
 
     .imagesContainer {
         display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 5vh;
     }
 
     .inputtedImageContainer {
@@ -130,15 +122,5 @@
         display: block;
         max-height: 400px;
         margin: 0 1rem;
-    }
-
-    footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 1rem;
-        background: #eee;
-        text-align: center;
     }
 </style>

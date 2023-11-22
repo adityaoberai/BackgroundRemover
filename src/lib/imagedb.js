@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { ID, Query } from "appwrite";
 import { databases } from "$lib/appwrite";
-import { user } from "./user";
 
 async function listImages() {
   var imageList = await databases.listDocuments('imagedb', 
@@ -10,7 +9,6 @@ async function listImages() {
       Query.orderDesc('$createdAt')
     ]
   );
-  console.log(imageList);
   return imageList.documents;
 }
 
