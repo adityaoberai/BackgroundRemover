@@ -2,7 +2,33 @@
     import { goto } from "$app/navigation";
 </script>
 
-<h1>Background Remover</h1>
-<p>Remove the background from your headshot!</p>
+<section id="intro">
+    <h1>Background Remover</h1>
+    <h2>Remove the background from your headshot!</h2>
+    <button on:click={() => goto("/app")}>Get Started</button>
+</section>
 
-<button on:click={() => goto("/app")}>Get Started</button>
+<style>
+    #intro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;    
+    } 
+
+    button {
+        font-size: 1.5rem;
+        padding: 1rem 2rem;
+        border-radius: 5px;
+        background-color: #1a202c;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin: 1rem 0;
+    }
+
+    button:hover {
+        background-color: #2d3748;
+    }
+</style>

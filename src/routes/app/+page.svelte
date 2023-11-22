@@ -10,15 +10,20 @@
     var outputImage = null;
 
     function onImageSelected() {
-        document.querySelector('.inputtedImageContainer').style.visibility = "visible";
-        document.querySelector('.outputtedImageContainer').style.visibility = "hidden";
+        document.querySelector('.inputImageContainer').style.visibility = "visible";
+        document.querySelector('.outputImageContainer').style.visibility = "hidden";
+        document.querySelector('.outputImageContainer').style.display = "none";
         var selectedFile = document.querySelector('#imageInputField').files[0];
         var fileReader = new FileReader();
         fileReader.readAsDataURL(selectedFile);
-        fileReader.onload = () => document.querySelector("#inputtedImage").src = fileReader.result;
+        fileReader.onload = () => document.querySelector("#inputImage").src = fileReader.result;
     }
 
     async function getImage() {
+        document.querySelector('.inputImageContainer').style.display = "none";
+        document.querySelector('.outputImageContainer').style.display = "flex";
+        document.querySelector('.outputImageContainer').style.visibility = "visible";
+        document.querySelector('.imageSubmitForm').style.display = "none";
         var image = document.querySelector('#imageInputField').files[0];
 
         alert("Uploading image...")
@@ -51,8 +56,10 @@
         .then(createdImage => {
             outputImage = createdImage;
             imageDb.addImage($user.$id, outputImage.$id);
-            document.querySelector('.outputtedImageContainer').style.visibility = "visible";
-            document.querySelector('#outputtedImage').src = storage.getFilePreview('output', outputImage.$id, 400);
+            document.querySelector('#outputImage').src = storage.getFilePreview('output', outputImage.$id, 300);
+            document.querySelector('.outputImageContainer').style.visibility = "visible";
+            document.querySelector('.resetButton').style.display = "block";
+            document.querySelector('.downloadButton').style.display = "block";  
             alert("Background removed!")
         });
     }
@@ -64,34 +71,47 @@
 
 <NavBar />
 
-<h1>Remove Background</h1>
+<section id="removeBackground">
+    <h1>Remove Background</h1>
 
-<form on:submit={getImage}>
-    <input type="file" id="imageInputField" on:change={onImageSelected}>
+    <form class="imageSubmitForm" on:submit={getImage}>
+        <input type="file" id="imageInputField" on:change={onImageSelected}>
+        <button type="submit">Remove Background</button>
+    </form>
 
-    <button type="submit">Submit</button>
-</form>
+    <br><br>
 
-<br><br>
-
-<div class="imagesContainer">
-    <div class="inputtedImageContainer">
-        <p>Inputted Image</p>
-        <img id="inputtedImage" src="" alt="">
+    <div class="imagesContainer">
+        <div class="inputImageContainer">
+            <div class="inputImageCard">
+                <p>Inputted Image</p>
+                <img id="inputImage" src="" alt="">
+            </div>
+        </div>
+        <div class="outputImageContainer">
+            <div class="outputImageCard">
+                <button class="resetButton" on:click={() => { location.reload(); }}>Reset</button>
+                <p>Outputted Image</p>
+                <img id="outputImage" src="" alt="">
+                <button class="downloadButton" on:click={downloadImage}>Download Image</button>
+            </div>
+            
+        </div>
     </div>
-    <div class="outputtedImageContainer">
-        <p>Outputted Image</p>
-        <img id="outputtedImage" src="" alt="">
-        <br>
-        <form on:submit={downloadImage}>
-            <button type="submit">Download Image</button>
-        </form>
-    </div>
-</div>
-
-<br><br>
+</section>
 
 <style>
+    #removeBackground {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #removeBackground h1 {
+        margin: 3rem auto;
+    }
+
     #imageInputField {
         display: block;
         margin-bottom: 1rem;
@@ -103,26 +123,54 @@
         margin-bottom: 5vh;
     }
 
-    .inputtedImageContainer {
+    .inputImageContainer {
         visibility: hidden;
         margin: 0 1rem;
     }
 
-    .outputtedImageContainer {
+    .inputImageCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #inputImage {
+        display: block;
+        max-height: 300px;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .outputImageContainer {
         visibility: hidden;
         margin: 0 1rem;
+        display: flex;
+        flex-direction: row;
     }
 
-    #inputtedImage {
-        display: block;
-        max-height: 400px;
-        width: 400px;
+    .outputImageCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
-    #outputtedImage  {
+    .resetButton {
+        margin: 1rem auto;
+        display: none;
+    }
+
+    .downloadButton {
+        margin: 1rem auto;
+        display: none;
+    }
+
+    #outputImage  {
         display: block;
-        max-height: 400px;
-        width: 400px;
+        max-height: 300px;
+        max-width: 300px;
+        height: auto;
         margin: 0 1rem;
     }
 </style>

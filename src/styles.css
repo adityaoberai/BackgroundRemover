@@ -1,0 +1,29 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: sans-serif;
+}
+
+body {
+    width: 100vw;
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 1rem 0;
+}
+
+h2 {
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    margin: 1rem 0;
+}
