@@ -5,7 +5,7 @@
 
     async function signOut() {
         try {
-            await user.signOut();
+            await user.logout();
         } catch (error) {
             alert(error.message);
         }
