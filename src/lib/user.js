@@ -3,7 +3,6 @@ import { writable } from "svelte/store";
 import { ID } from "appwrite";
 import { goto } from "$app/navigation";
 import { account } from "$lib/appwrite";
-import { browser } from "$app/environment";
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -22,37 +21,40 @@ const createUser = () => {
 	init();
 
   async function register(name, email, password) {
+    if (!isBrowser) return;
     await account.create(ID.unique(), email, password, name);
     await login(email, password);
   }
 
   async function login(email, password) {
+    if (!isBrowser) return;
     await account.createEmailSession(email, password);
     await init();
-    if(browser) {
-      goto("/app");
-    }
+    goto('/app');
   }
 
   async function logout() {
-    await account.deleteSession("current");
+    if (!isBrowser) return;
+    await account.deleteSession('current');
     store.set(null);
-    if(browser) {
-      goto("/");
-    }
+    goto('/');
   }
 
   async function createRecovery(email) {
-    await account.createRecovery(email, import.meta.env.VITE_APP_URL + "/auth/reset/complete");
-    alert("Check your email for a recovery link");
+    if (!isBrowser) return;
+    await account.createRecovery(email, import.meta.env.VITE_APP_URL + '/auth/reset/complete');
+    alert('Check your email for a recovery link');
+    goto('/');
   }
 
   async function updateRecovery(userId, secret, password, confirmPassword) {
+    if (!isBrowser) return;
     await account.updateRecovery(userId, secret, password, confirmPassword);
-    goto("/auth/login");
+    goto('/auth/login');
   }
 
   async function updatePassword(oldPassword, newPassword) {
+    if (!isBrowser) return;
     await account.updatePassword(newPassword, oldPassword);
   }
 
