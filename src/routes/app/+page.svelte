@@ -52,7 +52,7 @@
             outputImage = createdImage;
             imageDb.addImage($user.$id, outputImage.$id);
             document.querySelector('.outputtedImageContainer').style.visibility = "visible";
-            document.querySelector('#outputtedImage').src = storage.getFileView('output', outputImage.$id);
+            document.querySelector('#outputtedImage').src = storage.getFilePreview('output', outputImage.$id, 400);
             alert("Background removed!")
         });
     }
@@ -116,11 +116,13 @@
     #inputtedImage {
         display: block;
         max-height: 400px;
+        width: 400px;
     }
 
     #outputtedImage  {
         display: block;
         max-height: 400px;
+        width: 400px;
         margin: 0 1rem;
     }
 </style>
