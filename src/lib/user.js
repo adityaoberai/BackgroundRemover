@@ -5,14 +5,17 @@ import { goto } from "$app/navigation";
 import { account } from "$lib/appwrite";
 import { browser } from "$app/environment";
 
+const isBrowser = typeof window !== 'undefined';
+
 const createUser = () => {
 	const store = writable(null);
 
 	async function init() {
+    if (!isBrowser) return;
 		try {
 			store.set(await account.get());
 		} catch (e) {
-			goto("/auth/login")
+			store.set(null);
 		}
 	}
 

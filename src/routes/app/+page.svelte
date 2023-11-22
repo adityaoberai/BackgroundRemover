@@ -5,7 +5,7 @@
     import { imageDb } from "$lib/imagedb";
     import { storage } from "$lib/appwrite";
 	import { ID, Permission, Role } from "appwrite";
-    import NavBar from "../../components/NavBar.svelte";
+	import NavBar from "../../components/NavBar.svelte";
 
     var outputImage = null;
 

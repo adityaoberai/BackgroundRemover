@@ -1,11 +1,17 @@
 <script>
     import { goto } from "$app/navigation";
+    import { user } from "$lib/user";
 </script>
 
 <section id="intro">
     <h1>Background Remover</h1>
     <h2>Remove the background from your headshot!</h2>
-    <button on:click={() => goto("/app")}>Get Started</button>
+
+    {#if $user}
+        <button on:click={() => goto("/app")}>Get Started</button>
+    {:else}
+        <button on:click={() => goto("/auth/login")}>Login</button>
+    {/if}
 </section>
 
 <style>
