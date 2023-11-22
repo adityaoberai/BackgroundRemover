@@ -2,7 +2,6 @@
 import { ID, Query } from "appwrite";
 import { databases } from "$lib/appwrite";
 import { user } from "./user";
-import { get } from "svelte/store";
 
 async function listImages() {
   var imageList = await databases.listDocuments('imagedb', 
@@ -38,4 +37,4 @@ export const imageDb = {
   listImages,
   addImage,
   deleteImage
-}
+};

@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     import { page } from '$app/stores';
     import { user } from '$lib/user';
 
@@ -6,15 +8,21 @@
     let secret = $page.url.searchParams.get('secret');
     let password = "";
     let confirmPassword = "";
+
+    async function updateRecovery() {
+        try {
+            await user.updateRecovery(userId, secret, password, confirmPassword);
+        } catch (error) {
+            alert(error.message);
+        }
+    }
 </script>
 
 <h1>Set New Password</h1>
 <form>
     <input type="password" placeholder="New Password" bind:value={password} />
     <input type="password" placeholder="Confirm Password" bind:value={confirmPassword} />
-    <button type="button" on:click={() => user.updateRecovery(userId, secret, password, confirmPassword)}
-        >Set New Password</button
-    >
+    <button type="button" on:submit={updateRecovery}>Set New Password</button>
 </form>
 
 <style>
