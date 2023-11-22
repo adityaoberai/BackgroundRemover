@@ -19,10 +19,10 @@
 </script>
 
 <h1>Set New Password</h1>
-<form>
+<form on:submit={updateRecovery}>
     <input type="password" placeholder="New Password" bind:value={password} />
     <input type="password" placeholder="Confirm Password" bind:value={confirmPassword} />
-    <button type="button" on:submit={updateRecovery}>Set New Password</button>
+    <button type="submit">Set New Password</button>
 </form>
 
 <style>

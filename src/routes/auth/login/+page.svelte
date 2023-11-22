@@ -16,10 +16,10 @@
 </script>
 
 <h1>Login</h1>
-<form>
+<form on:submit={login}>
   <input type="email" placeholder="Email" bind:value={email} />
   <input type="password" placeholder="Password" bind:value={password} />
-  <button type="button" on:submit={login}>Login</button>
+  <button type="submit">Login</button>
 </form>
 
 <a href="./reset">Reset password?</a>
