@@ -5,9 +5,22 @@
     import { imageDb } from "$lib/imagedb";
     import { storage } from "$lib/appwrite";
 	import { ID, Permission, Role } from "appwrite";
+    import { addToast } from "../../components/Toaster.svelte";
 	import NavBar from "../../components/NavBar.svelte";
 
     var outputImage = null;
+
+    function createToast(title, description, color) {
+        addToast({
+            data: {
+                title: title,
+                description: description,
+                color: color
+            },
+            closeDelay: 5000,
+            type: 'foreground'
+        });
+    }
 
     function onImageSelected() {
         document.querySelector('.inputImageContainer').style.visibility = "visible";
@@ -23,30 +36,21 @@
         document.querySelector('.inputImageContainer').style.display = "none";
         document.querySelector('.outputImageContainer').style.display = "flex";
         document.querySelector('.outputImageContainer').style.visibility = "visible";
+        document.querySelector('.resetButton').style.display = "block";
         document.querySelector('.imageSubmitForm').style.display = "none";
+        
+        createToast('Processing image', 'Removing background from the image', 'blue');
         var image = document.querySelector('#imageInputField').files[0];
-
-        alert("Uploading image...")
-        var inputImage = await storage.createFile('input',
-            ID.unique(),
-            image
-        );
-
-        var inputImageUrl = storage.getFileView('input', inputImage.$id).href;
-
-        alert("Removing background...");
         fetch('/app/remove', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/octet-stream'
             },
-            body: JSON.stringify({ 
-                imageUrl: inputImageUrl 
-            })
+            body: image
         })
         .then(res => res.blob())
         .then(blob => {
-            alert("Saving output to profile...");
+            createToast('Uploading output', 'Saving processed image to profile', 'blue');
             return storage.createFile('output', 
                 ID.unique(), 
                 new File([blob], 'output.png'),
@@ -58,9 +62,12 @@
             imageDb.addImage($user.$id, outputImage.$id);
             document.querySelector('#outputImage').src = storage.getFilePreview('output', outputImage.$id, 300);
             document.querySelector('.outputImageContainer').style.visibility = "visible";
-            document.querySelector('.resetButton').style.display = "block";
             document.querySelector('.downloadButton').style.display = "block";  
-            alert("Background removed!")
+            createToast('Background removed', 'Image processed and saved to profile', 'green');
+        })
+        .catch(error => {
+            console.error(error.message);
+            createToast('Error', error.message, 'red');
         });
     }
 
@@ -108,7 +115,14 @@
         justify-content: center;
     }
 
+    #removeBackground p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        margin: 1rem 0;
+    } 
     #removeBackground h1 {
+        font-size: 3rem;
+        margin: 1rem 0;
         margin: 3rem auto;
     }
 
