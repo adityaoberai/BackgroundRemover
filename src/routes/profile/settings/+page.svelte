@@ -1,9 +1,10 @@
 <script>
 // @ts-nocheck
 
-    import NavBar from "../../../components/NavBar.svelte";
     import { user } from "$lib/user";
 	import { goto } from "$app/navigation";
+    import NavBar from "../../../components/NavBar.svelte";
+	import NotLoggedIn from "../../../components/NotLoggedIn.svelte";
 
     let oldPassword = "";
     let newPassword = "";
@@ -20,14 +21,18 @@
     
 </script>
 
-<NavBar />
+{#if $user}
+    <NavBar />
 
-<h1>Settings</h1>
+    <h1>Settings</h1>
 
-<h2>Change Password</h2>
+    <h2>Change Password</h2>
 
-<form on:submit={changePassword}>
-    <input type="password" minlength="8" placeholder="Old Password" bind:value={oldPassword} />
-    <input type="password" minlength="8" placeholder="New Password" bind:value={newPassword} />
-    <button type="submit">Update Password</button>
-</form>
+    <form on:submit={changePassword}>
+        <input type="password" minlength="8" placeholder="Old Password" bind:value={oldPassword} />
+        <input type="password" minlength="8" placeholder="New Password" bind:value={newPassword} />
+        <button type="submit">Update Password</button>
+    </form>
+{:else}
+    <NotLoggedIn />
+{/if}

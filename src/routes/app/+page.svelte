@@ -7,6 +7,7 @@
 	import { ID, Permission, Role } from "appwrite";
     import { addToast } from "../../components/Toaster.svelte";
 	import NavBar from "../../components/NavBar.svelte";
+	import NotLoggedIn from "../../components/NotLoggedIn.svelte";
 
     var outputImage = null;
 
@@ -76,36 +77,40 @@
     }    
 </script>
 
-<NavBar />
+{#if $user}
+    <NavBar />
 
-<section id="removeBackground">
-    <h1>Remove Background</h1>
+    <section id="removeBackground">
+        <h1>Remove Background</h1>
 
-    <form class="imageSubmitForm" on:submit={getImage}>
-        <input type="file" id="imageInputField" on:change={onImageSelected}>
-        <button type="submit">Remove Background</button>
-    </form>
+        <form class="imageSubmitForm" on:submit={getImage}>
+            <input type="file" id="imageInputField" on:change={onImageSelected}>
+            <button type="submit">Remove Background</button>
+        </form>
 
-    <br><br>
+        <br><br>
 
-    <div class="imagesContainer">
-        <div class="inputImageContainer">
-            <div class="inputImageCard">
-                <p>Inputted Image</p>
-                <img id="inputImage" src="" alt="">
+        <div class="imagesContainer">
+            <div class="inputImageContainer">
+                <div class="inputImageCard">
+                    <p>Inputted Image</p>
+                    <img id="inputImage" src="" alt="">
+                </div>
+            </div>
+            <div class="outputImageContainer">
+                <div class="outputImageCard">
+                    <button class="resetButton" on:click={() => { location.reload(); }}>Reset</button>
+                    <p>Outputted Image</p>
+                    <img id="outputImage" src="" alt="">
+                    <button class="downloadButton" on:click={downloadImage}>Download Image</button>
+                </div>
+                
             </div>
         </div>
-        <div class="outputImageContainer">
-            <div class="outputImageCard">
-                <button class="resetButton" on:click={() => { location.reload(); }}>Reset</button>
-                <p>Outputted Image</p>
-                <img id="outputImage" src="" alt="">
-                <button class="downloadButton" on:click={downloadImage}>Download Image</button>
-            </div>
-            
-        </div>
-    </div>
-</section>
+    </section>
+{:else}
+    <NotLoggedIn />
+{/if}
 
 <style>
     #removeBackground {
