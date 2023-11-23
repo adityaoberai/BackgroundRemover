@@ -18,16 +18,11 @@
     }
 </script>
 
-<h1>Set New Password</h1>
-<form on:submit={updateRecovery}>
-    <input type="password" placeholder="New Password" bind:value={password} />
-    <input type="password" placeholder="Confirm Password" bind:value={confirmPassword} />
-    <button type="submit">Set New Password</button>
-</form>
-
-<style>
-form {
-    display: grid;
-    gap: 0.25rem;
-}
-</style>
+<section id="authFormContainer">
+    <h1>Set New Password</h1>
+    <form on:submit={updateRecovery}>
+        <input type="password" placeholder="New Password" bind:value={password} />
+        <input type="password" placeholder="Confirm Password" bind:value={confirmPassword} />
+        <button type="submit">Set New Password</button>
+    </form>
+</section>

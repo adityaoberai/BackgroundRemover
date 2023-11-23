@@ -21,9 +21,19 @@
         align-items: center;
         justify-content: center;
         height: 100vh;    
-    } 
+    }
 
-    button {
+    #intro h1 {
+    font-size: 3rem;
+    margin: 1rem 0;
+    }
+
+    #intro h2 {
+        font-size: 2rem;
+        margin: 1rem 0;
+    }
+
+    #intro button {
         font-size: 1.5rem;
         padding: 1rem 2rem;
         border-radius: 5px;
@@ -34,7 +44,7 @@
         margin: 1rem 0;
     }
 
-    button:hover {
+    #intro button:hover {
         background-color: #2d3748;
     }
 </style>

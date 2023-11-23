@@ -1,6 +1,8 @@
 <script>
     import '../styles.css';
-    import NavBar from '../components/NavBar.svelte';
+    import Toaster from '../components/Toaster.svelte';
 </script>
+
+<Toaster />
 
 <slot />

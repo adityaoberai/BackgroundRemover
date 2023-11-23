@@ -14,8 +14,9 @@
         alert(error.message);
       }
     };
-  </script>
-  
+</script>
+
+<section id="authFormContainer">
   <h1>Register</h1>
   <form on:submit={register}>
     <input type="text" placeholder="Name" bind:value={name}>
@@ -24,12 +25,5 @@
     <button type="submit">Register</button>
   </form>
 
-  <a href="./login">Login instead?</a>
-  
-  <style>
-    form {
-      display: grid;
-      gap: 0.25rem;
-    }
-  </style>
-  
+  <a href="/auth/login">Login instead?</a>
+</section>

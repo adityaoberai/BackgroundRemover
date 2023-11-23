@@ -15,21 +15,13 @@
   }
 </script>
 
-<h1>Login</h1>
-<form on:submit={login}>
-  <input type="email" placeholder="Email" bind:value={email} />
-  <input type="password" placeholder="Password" bind:value={password} />
-  <button type="submit">Login</button>
-</form>
-
-<a href="./reset">Reset password?</a>
-
-<a href="./register">Sign up instead?</a>
-
-<style>
-form {
-  display: grid;
-  gap: 0.25rem;
-}
-</style>
-  
+<section id="authFormContainer">
+  <h1>Login</h1>
+  <form on:submit={login}>
+    <input type="email" placeholder="Email" bind:value={email} />
+    <input type="password" placeholder="Password" bind:value={password} />
+    <button type="submit">Login</button>
+  </form>
+  <a href="/auth/reset">Reset password?</a>
+  <a href="/auth/register">Sign up instead?</a>
+</section>

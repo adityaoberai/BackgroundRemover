@@ -5,25 +5,60 @@
 
 html {
     scroll-behavior: smooth;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 body {
     width: 100vw;
 }
 
-h1 {
-    font-size: 3rem;
-    margin: 1rem 0;
+/* Auth pages CSS */
+
+#authFormContainer {
+    margin: 5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-h2 {
-    font-size: 2rem;
-    margin: 1rem 0;
+#authFormContainer form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 67%;
 }
 
-p {
+#authFormContainer form input {
+    margin: 1rem;
+    padding: 0.5rem 2rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 67%;
+}
+
+#authFormContainer form button {
     font-size: 1rem;
-    margin-bottom: 1rem;
+    width: 33%;
+    margin: 1rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: #1a202c;
+    color: white;
+    border: none;
+    cursor: pointer;
     margin: 1rem 0;
+}
+
+#authFormContainer form button:hover {
+    background-color: #2d3748;
+}
+
+#authFormContainer a {
+    margin: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border:  1px solid blue;
 }

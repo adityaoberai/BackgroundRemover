@@ -12,6 +12,8 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
+		"@melt-ui/pp": "^0.1.4",
+		"@melt-ui/svelte": "^0.62.1",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
 		"@vavite/node-loader": "^3.0.0",
@@ -22,6 +24,7 @@
 		"prettier-plugin-svelte": "^2.10.1",
 		"svelte": "^4.0.5",
 		"svelte-check": "^3.4.3",
+		"svelte-sequential-preprocessor": "^2.0.1",
 		"typescript": "^5.0.0",
 		"vite": "^4.4.2"
 	},

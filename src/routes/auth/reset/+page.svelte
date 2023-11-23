@@ -14,15 +14,11 @@
     }
 </script>
 
-<h1>Reset Password</h1>
-<form on:submit={createRecovery}>
-    <input type="email" placeholder="Email" bind:value={email} />
-    <button type="submit">Send Password Recovery Email</button>
-</form>
-
-<style>
-form {
-    display: grid;
-    gap: 0.25rem;
-}
-</style>
+<section id="authFormContainer">
+    <h1>Reset Password</h1>
+    <form on:submit={createRecovery}>
+        <input type="email" placeholder="Email" bind:value={email} />
+        <button type="submit">Send Password Recovery Email</button>
+    </form>
+    <a href="/auth/login">Return to Login</a>
+</section>
