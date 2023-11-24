@@ -5,28 +5,17 @@
     import { imageDb } from "$lib/imagedb";
     import { storage } from "$lib/appwrite";
 	import { ID, Permission, Role } from "appwrite";
-    import { addToast } from "../../components/Toaster.svelte";
+	import { createToast } from "$lib/toast";
 	import NavBar from "../../components/NavBar.svelte";
-	import NotLoggedIn from "../../components/NotLoggedIn.svelte";
+	import VerifyLogin from "../../components/VerifyLogin.svelte";
 
     var outputImage = null;
-
-    function createToast(title, description, color) {
-        addToast({
-            data: {
-                title: title,
-                description: description,
-                color: color
-            },
-            closeDelay: 5000,
-            type: 'foreground'
-        });
-    }
 
     function onImageSelected() {
         document.querySelector('.inputImageContainer').style.visibility = "visible";
         document.querySelector('.outputImageContainer').style.visibility = "hidden";
         document.querySelector('.outputImageContainer').style.display = "none";
+        document.querySelector('#imageInputButton').style.display = "block";
         var selectedFile = document.querySelector('#imageInputField').files[0];
         var fileReader = new FileReader();
         fileReader.readAsDataURL(selectedFile);
@@ -61,10 +50,10 @@
         .then(createdImage => {
             outputImage = createdImage;
             imageDb.addImage($user.$id, outputImage.$id);
-            document.querySelector('#outputImage').src = storage.getFilePreview('output', outputImage.$id, 300);
-            document.querySelector('.outputImageContainer').style.visibility = "visible";
+            document.querySelector('#outputImage').src = storage.getFilePreview('output', outputImage.$id, 600);
+            document.querySelector('.outputImageCard').style.visibility = "visible";
             document.querySelector('.downloadButton').style.display = "block";  
-            createToast('Background removed', 'Image processed and saved to profile', 'green');
+            createToast('Background removed', 'Image processed and saved to profile', 'green', 1000);
         })
         .catch(error => {
             console.error(error.message);
@@ -77,15 +66,17 @@
     }    
 </script>
 
-{#if $user}
-    <NavBar />
+<NavBar />
 
+{#if $user}
     <section id="removeBackground">
         <h1>Remove Background</h1>
 
-        <form class="imageSubmitForm" on:submit={getImage}>
-            <input type="file" id="imageInputField" on:change={onImageSelected}>
-            <button type="submit">Remove Background</button>
+        <form class="imageSubmitForm">
+            <label for="imageInputField">
+                <strong>Upload Image Here</strong>
+                <input type="file" accept="image/*" id="imageInputField" on:change={onImageSelected}>
+            </label>
         </form>
 
         <br><br>
@@ -93,23 +84,23 @@
         <div class="imagesContainer">
             <div class="inputImageContainer">
                 <div class="inputImageCard">
-                    <p>Inputted Image</p>
-                    <img id="inputImage" src="" alt="">
+                    <h2>Inputted Image</h2>
+                    <img id="inputImage" src="" alt="">      
+                    <button type="button" id="imageInputButton" on:click={getImage}>Remove Background</button>
                 </div>
             </div>
             <div class="outputImageContainer">
+                <button class="resetButton" on:click={() => { location.reload(); }}>Reset Image</button>
                 <div class="outputImageCard">
-                    <button class="resetButton" on:click={() => { location.reload(); }}>Reset</button>
-                    <p>Outputted Image</p>
+                    <h2>Outputted Image</h2>
                     <img id="outputImage" src="" alt="">
                     <button class="downloadButton" on:click={downloadImage}>Download Image</button>
                 </div>
-                
             </div>
         </div>
     </section>
 {:else}
-    <NotLoggedIn />
+    <VerifyLogin />
 {/if}
 
 <style>
@@ -118,22 +109,41 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
-
-    #removeBackground p {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-        margin: 1rem 0;
+        width: 90vw;
+        margin: 0 5vw;
     } 
+
     #removeBackground h1 {
         font-size: 3rem;
+        margin: 3rem 0;
+    }
+
+    #removeBackground h2 {
+        font-size: 2rem;
         margin: 1rem 0;
-        margin: 3rem auto;
     }
 
     #imageInputField {
         display: block;
-        margin-bottom: 1rem;
+        margin: 1rem 0;
+        padding: 2rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    button {
+        display: none;
+        background-color: #333;
+        color: #ccc;
+        font-size: 1rem;
+        border-radius: 5px;
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    button:hover {
+        background-color: #555;
     }
 
     .imagesContainer {
@@ -156,23 +166,24 @@
 
     #inputImage {
         display: block;
-        max-height: 300px;
-        max-width: 300px;
+        max-height: 50%;
+        max-width: 50%;
         height: auto;
+        margin: 1rem 0;
     }
 
     .outputImageContainer {
         visibility: hidden;
         margin: 0 1rem;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
     }
 
     .outputImageCard {
         display: flex;
+        visibility: hidden;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
     }
 
     .resetButton {
@@ -187,9 +198,9 @@
 
     #outputImage  {
         display: block;
-        max-height: 300px;
-        max-width: 300px;
+        max-height: 35%;
+        max-width: 60%;
         height: auto;
-        margin: 0 1rem;
+        margin: 1rem 0;
     }
 </style>

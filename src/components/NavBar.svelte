@@ -1,68 +1,79 @@
 <script>
-// @ts-nocheck
-
     import { user } from "$lib/user";
-
-    async function signOut() {
-        try {
-            await user.logout();
-        } catch (error) {
-            alert(error.message);
-        }
-    }
 </script>
 
 <nav>
-    <ul>
-        <li>
+    <div class="dropdown">
+        <button class="dropbtn">Menu</button>
+        <div class="dropdown-content">
             <a href="/">Home</a>
-        </li>
-        <li>
+            {#if $user}
             <a href="/app">Remove Background</a>
-        </li>
-        <li>
             <a href="/profile">Profile</a>
-        </li>
-        <li>
             <a href="/profile/settings">Settings</a>
-        </li>
-        <li>
-            <button on:click={signOut}>Sign Out</button>
-        </li>
-    </ul>
+            <a href="/auth/logout">Sign Out</a>
+            {:else}
+            <a href="/auth/login">Login</a>
+            <a href="/auth/register">Register</a>
+            {/if}
+        </div>
+    </div>
 </nav>
 
 <style>
     nav {
-        height: 3rem;
-        background-color: #333;
-        
-    }
-
-    nav ul {
         display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        list-style-type: none;
-        width: 100%;
-    }
-
-    nav ul li {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        list-style-type: none;
-    }
-
-    nav a {
-        border: 1px solid white;
+        justify-content: flex-start;
         padding: 1rem;
-        color: white;
-        text-decoration: none;
+        width: 100%;
+        background-color: #333;
     }
 
-    nav a:hover {
-        background-color: white;
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #333;
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        font-size: 1rem;
+        color: #ccc;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ccc;
         color: #333;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #ccc;
+        color: #333;
+    }
+
+    .dropbtn {
+        background-color: #333;
+        color: white;
+        padding: 1rem;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropbtn:hover {
+        background-color: #333;
+        color: #ccc;
     }
 </style>

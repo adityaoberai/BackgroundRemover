@@ -12,6 +12,14 @@ body {
     width: 100vw;
 }
 
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
 /* Auth pages CSS */
 
 #authFormContainer {
@@ -20,6 +28,16 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+#authFormContainer h1 {
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+#authFormContainer h2 {
+    font-size: 1.5rem;
+    margin: 1rem;
 }
 
 #authFormContainer form {
@@ -41,19 +59,18 @@ body {
 
 #authFormContainer form button {
     font-size: 1rem;
-    width: 33%;
     margin: 1rem;
-    padding: 0.5rem;
+    padding: 1rem 2rem;
     border-radius: 5px;
-    background-color: #1a202c;
-    color: white;
+    background-color: #333;
+    color: #ccc;
     border: none;
     cursor: pointer;
     margin: 1rem 0;
 }
 
 #authFormContainer form button:hover {
-    background-color: #2d3748;
+    background-color: #555;
 }
 
 #authFormContainer a {

@@ -24,8 +24,8 @@
     }
 
     #intro h1 {
-    font-size: 3rem;
-    margin: 1rem 0;
+        font-size: 3rem;
+        margin: 1rem auto;
     }
 
     #intro h2 {
@@ -37,7 +37,7 @@
         font-size: 1.5rem;
         padding: 1rem 2rem;
         border-radius: 5px;
-        background-color: #1a202c;
+        background-color: #333;
         color: white;
         border: none;
         cursor: pointer;
@@ -45,6 +45,6 @@
     }
 
     #intro button:hover {
-        background-color: #2d3748;
+        background-color: #555;
     }
 </style>

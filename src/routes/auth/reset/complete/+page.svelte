@@ -3,6 +3,8 @@
 
     import { page } from '$app/stores';
     import { user } from '$lib/user';
+    import { goto } from '$app/navigation';
+    import { createToast } from '$lib/toast';
 
     let userId = $page.url.searchParams.get('userId');
     let secret = $page.url.searchParams.get('secret');
@@ -12,8 +14,10 @@
     async function updateRecovery() {
         try {
             await user.updateRecovery(userId, secret, password, confirmPassword);
+            createToast("Password Reset", "User password has been reset", "green");
         } catch (error) {
-            alert(error.message);
+            createToast("Error", error.message, "red");
+            goto('/');
         }
     }
 </script>

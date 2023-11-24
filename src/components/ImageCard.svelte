@@ -25,7 +25,9 @@
 </script>
 
 <div class="imageCard">
-    <img src={imageSrc} alt="">
+    <div class="image">
+        <img src={imageSrc} alt="">
+    </div> 
     <div class="imageCardButtons">
         <button on:click={viewImage}>View</button>
         <button on:click={downloadImage}>Download</button>
@@ -41,25 +43,66 @@
         align-items: center;
         justify-content: center;
         margin: 1rem;
-        width: 300px;
-        border: 1px solid black;
+        border: 1px solid #333;
+        border-radius: 5px;
+        width: 25vw;
+        height: 30vh;
     }
 
-    .imageCard img {
+    .imageCard .image {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 70%;
+        margin-bottom: 1rem;
+    }
+
+    .imageCard .image img {
+        flex-direction: column;
         max-height: 70%;
         margin: 1rem auto;
     }
 
-    .imageCard .imageCardButtons {
+    .imageCardButtons {
         position: absolute;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-evenly;
+        background-color: #333;
+        width: 100%;
+        height: 20%;
         bottom: 0;
     }
 
-    .imageCard .imageCardButtons button {
+    .imageCardButtons button {
         margin: 0.5rem;
+        background-color: #333;
+        color: #ccc;
+        text-decoration: none;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+    }
+
+    .imageCardButtons button:hover {
+        background-color: #ccc;
+        color: #333;
+    }
+
+    @media screen and (max-width: 900px) {
+        .imageCard {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem;
+            border: 1px solid #333;
+            border-radius: 5px;
+            width: 85vw;
+            max-height: 70vh;
+        }
     }
 </style>

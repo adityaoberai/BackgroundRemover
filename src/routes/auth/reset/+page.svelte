@@ -2,14 +2,18 @@
 // @ts-nocheck
 
     import { user } from "$lib/user";
+    import { goto } from "$app/navigation";
+    import { createToast } from "$lib/toast";
   
     let email = "";
 
     async function createRecovery() {
         try {
             await user.createRecovery(email);
+            createToast('Password reset email sent', 'Please check you email for reset link', 'green');
         } catch (error) {
-            alert(error.message);
+            createToast('Error', error.message, 'red');
+            goto('/')
         }
     }
 </script>

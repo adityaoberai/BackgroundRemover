@@ -2,9 +2,7 @@
 </script>
 
 <section>
-    <h1>User not logged in</h1>
-
-    <h2>Please <a href="/auth/login">login</a> or <a href="/auth/register">register</a> to use this app</h2>
+    <h1>Verifying if user is logged in...</h1>
 </section>
 
 <style>
@@ -18,10 +16,5 @@
 
     h1 {
         font-size: 2rem;
-        margin-bottom: 1rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
     }
 </style>

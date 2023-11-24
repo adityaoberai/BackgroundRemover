@@ -2,6 +2,8 @@
 // @ts-nocheck
 
     import { user } from "$lib/user";
+    import { goto } from "$app/navigation";
+    import { createToast } from "$lib/toast";
 
     let name = "";
     let email = "";
@@ -10,8 +12,10 @@
     async function register() {
       try {
         await user.register(name, email, password);
+        createToast('Registration successful', 'User has signed up', 'green');
       } catch (error) {
-        alert(error.message);
+        createToast('Error', error.message, 'red');
+        goto('/')
       }
     };
 </script>

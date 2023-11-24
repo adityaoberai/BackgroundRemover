@@ -1,6 +1,7 @@
 <script>
 // @ts-nocheck
-
+  import { goto } from "$app/navigation";
+  import { createToast } from "$lib/toast";
   import { user } from "$lib/user";
 
   let email = "";
@@ -9,8 +10,10 @@
   async function login() {
     try {
       await user.login(email, password);
+      createToast('Login successful', 'User has signed in', 'green', 2000);
     } catch (error) {
-      alert(error.message);
+      createToast('Error', error.message, 'red');
+      goto('/')
     }
   }
 </script>
