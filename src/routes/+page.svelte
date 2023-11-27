@@ -4,6 +4,7 @@
 </script>
 
 <section id="intro">
+    <img src="logo.png" alt="Background Remover">
     <h1>Background Remover</h1>
     <h2>Remove the background from your headshot!</h2>
 
@@ -21,6 +22,12 @@
         align-items: center;
         justify-content: center;
         height: 100vh;    
+    }
+
+    #intro img {
+        max-width: 20%;
+        border-radius: 10px;
+        margin: 2rem auto;
     }
 
     #intro h1 {
