@@ -11,6 +11,7 @@
             <a href="/app">Remove Background</a>
             <a href="/profile">Profile</a>
             <a href="/profile/settings">Settings</a>
+            <a href="https://github.com/adityaoberai/BackgroundRemover" target="_blank">Star on GitHub</a>
             <a href="/auth/logout">Sign Out</a>
             {:else}
             <a href="/auth/login">Login</a>

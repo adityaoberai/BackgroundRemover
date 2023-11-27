@@ -21,10 +21,30 @@
 <section id="authFormContainer">
   <h1>Login</h1>
   <form on:submit={login}>
-    <input type="email" placeholder="Email" bind:value={email} />
-    <input type="password" placeholder="Password" bind:value={password} />
+    <label for="email">
+      Email
+    </label>
+    <input id="email" type="email" placeholder="Email" bind:value={email} />
+    <label for="password">
+      Password <span>*</span>
+    </label>
+    <input id="password" type="password" placeholder="Password" bind:value={password} />
     <button type="submit">Login</button>
   </form>
-  <a href="/auth/reset">Reset password?</a>
-  <a href="/auth/register">Sign up instead?</a>
+  <div class="authFormRedirects">
+    <a href="/auth/reset">Reset password?</a>
+    <a href="/auth/register">Sign up instead?</a>
+  </div>
 </section>
+
+<style>
+  span {
+    color: red;
+  }
+
+  .authFormRedirects {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+</style>

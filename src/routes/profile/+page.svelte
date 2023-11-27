@@ -12,19 +12,19 @@
 <NavBar />
 
 {#if $user}
-    <section id="profile">
-        <h1>Profile</h1>
+<section id="profile">
+    <h1>Profile</h1>
 
-        <h2>Saved Images</h2>
+    <h2>Saved Images</h2>
 
-        <div class="savedImagesContainer">
-            {#each data.images as image}
-                <ImageCard image={image} />
-            {/each}
-        </div>
-    </section>
+    <div class="savedImagesContainer">
+        {#each data.images as image}
+            <ImageCard image={image} />
+        {/each}
+    </div>
+</section>
 {:else}
-    <VerifyLogin />
+<VerifyLogin />
 {/if}
 
 <style>

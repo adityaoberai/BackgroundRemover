@@ -23,11 +23,54 @@
 <section id="authFormContainer">
   <h1>Register</h1>
   <form on:submit={register}>
-    <input type="text" placeholder="Name" bind:value={name}>
-    <input type="email" placeholder="Email" bind:value={email} />
-    <input type="password" minlength="8" placeholder="Password" bind:value={password} />
+    <label for="name">
+      Full Name
+      
+    </label>
+    <input id="name" type="text" placeholder="Name" bind:value={name}>
+    <label for="email">
+      Email
+    </label>
+    <input id="email" type="email" placeholder="Email" bind:value={email} />
+    <label for="password">
+      Password <span>*</span>
+    </label>
+    <input id="password" type="password" minlength="8" placeholder="Password" bind:value={password} />
     <button type="submit">Register</button>
   </form>
 
   <a href="/auth/login">Login instead?</a>
+
+  <div class="footer">
+    <div class="authFormTerms">
+      <p>By registering on the website, you allow your images uploaded to be processed by Azure AI Vision and for your registration details and outputted images to be stored in Appwrite Cloud.</p>
+    </div>
+  </div>
 </section>
+
+<style>
+  span {
+    color: red;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    margin: 5% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .authFormTerms {
+    width: 50%;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #ccc;
+  }
+
+  .authFormTerms p {
+    text-align: center;
+    padding: 1rem;
+  }
+</style>

@@ -7,7 +7,7 @@
 	import { ID, Permission, Role } from "appwrite";
 	import { createToast } from "$lib/toast";
 	import NavBar from "../../components/NavBar.svelte";
-	import VerifyLogin from "../../components/VerifyLogin.svelte";
+    import VerifyLogin from "../../components/VerifyLogin.svelte";
 
     var outputImage = null;
 
@@ -29,7 +29,7 @@
         document.querySelector('.resetButton').style.display = "block";
         document.querySelector('.imageSubmitForm').style.display = "none";
         
-        createToast('Processing image', 'Removing background from the image', 'blue');
+        createToast('Processing image', 'Removing background from the image', 'blue', 0);
         var image = document.querySelector('#imageInputField').files[0];
         fetch('/app/remove', {
             method: 'POST',
@@ -40,7 +40,7 @@
         })
         .then(res => res.blob())
         .then(blob => {
-            createToast('Uploading output', 'Saving processed image to profile', 'blue');
+            createToast('Uploading output', 'Saving processed image to profile', 'blue', 0);
             return storage.createFile('output', 
                 ID.unique(), 
                 new File([blob], 'output.png'),
@@ -53,7 +53,10 @@
             document.querySelector('#outputImage').src = storage.getFilePreview('output', outputImage.$id, 600);
             document.querySelector('.outputImageCard').style.visibility = "visible";
             document.querySelector('.downloadButton').style.display = "block";  
-            createToast('Background removed', 'Image processed and saved to profile', 'green', 1000);
+            createToast('Background removed', 'Image processed and saved to profile', 'green', 0);
+            setTimeout(() => {
+                document.querySelector('.toastPortal').style.display = "none";
+            }, 2000);
         })
         .catch(error => {
             console.error(error.message);
@@ -69,38 +72,38 @@
 <NavBar />
 
 {#if $user}
-    <section id="removeBackground">
-        <h1>Remove Background</h1>
+<section id="removeBackground">
+    <h1>Remove Background</h1>
 
-        <form class="imageSubmitForm">
-            <label for="imageInputField">
-                <strong>Upload Image Here</strong>
-                <input type="file" accept="image/*" id="imageInputField" on:change={onImageSelected}>
-            </label>
-        </form>
+    <form class="imageSubmitForm">
+        <label for="imageInputField">
+            <strong>Upload Image Here</strong>
+            <input type="file" accept="image/*" id="imageInputField" on:change={onImageSelected}>
+        </label>
+    </form>
 
-        <br><br>
+    <br><br>
 
-        <div class="imagesContainer">
-            <div class="inputImageContainer">
-                <div class="inputImageCard">
-                    <h2>Inputted Image</h2>
-                    <img id="inputImage" src="" alt="">      
-                    <button type="button" id="imageInputButton" on:click={getImage}>Remove Background</button>
-                </div>
-            </div>
-            <div class="outputImageContainer">
-                <button class="resetButton" on:click={() => { location.reload(); }}>Reset Image</button>
-                <div class="outputImageCard">
-                    <h2>Outputted Image</h2>
-                    <img id="outputImage" src="" alt="">
-                    <button class="downloadButton" on:click={downloadImage}>Download Image</button>
-                </div>
+    <div class="imagesContainer">
+        <div class="inputImageContainer">
+            <div class="inputImageCard">
+                <h2>Inputted Image</h2>
+                <img id="inputImage" src="" alt="">      
+                <button type="button" id="imageInputButton" on:click={getImage}>Remove Background</button>
             </div>
         </div>
-    </section>
+        <div class="outputImageContainer">
+            <button class="resetButton" on:click={() => { location.reload(); }}>Reset Image</button>
+            <div class="outputImageCard">
+                <h2>Outputted Image</h2>
+                <img id="outputImage" src="" alt="">
+                <button class="downloadButton" on:click={downloadImage}>Download Image</button>
+            </div>
+        </div>
+    </div>
+</section>
 {:else}
-    <VerifyLogin />
+<VerifyLogin />
 {/if}
 
 <style>

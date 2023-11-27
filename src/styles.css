@@ -46,7 +46,7 @@ h2 {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    width: 67%;
+    width: 50%;
 }
 
 #authFormContainer form input {
@@ -77,5 +77,13 @@ h2 {
     margin: 1rem;
     padding: 0.5rem;
     font-size: 1rem;
-    border:  1px solid blue;
+    border:  1px solid #333;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+}
+
+#authFormContainer a:hover {
+    background-color: #555;
+    color: #ccc;
 }
