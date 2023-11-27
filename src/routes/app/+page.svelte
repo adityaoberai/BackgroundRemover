@@ -28,6 +28,7 @@
         document.querySelector('.outputImageContainer').style.visibility = "visible";
         document.querySelector('.resetButton').style.display = "block";
         document.querySelector('.imageSubmitForm').style.display = "none";
+        document.querySelector('.toastPortal').style.display = "flex";
         
         createToast('Processing image', 'Removing background from the image', 'blue', 0);
         var image = document.querySelector('#imageInputField').files[0];
