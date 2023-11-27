@@ -25,8 +25,8 @@
     }
 
     #intro img {
-        max-width: 20%;
-        border-radius: 10px;
+        max-width: 15%;
+        border-radius: 10%;
         margin: 2rem auto;
     }
 

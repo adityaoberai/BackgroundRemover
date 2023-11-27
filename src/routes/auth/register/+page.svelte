@@ -24,18 +24,17 @@
   <h1>Register</h1>
   <form on:submit={register}>
     <label for="name">
-      Full Name
-      
+      Full Name <span>*</span>
     </label>
-    <input id="name" type="text" placeholder="Name" bind:value={name}>
+    <input id="name" type="text" placeholder="Name" bind:value={name} required/>
     <label for="email">
-      Email
+      Email <span>*</span>
     </label>
-    <input id="email" type="email" placeholder="Email" bind:value={email} />
+    <input id="email" type="email" placeholder="Email" bind:value={email} required/>
     <label for="password">
       Password <span>*</span>
     </label>
-    <input id="password" type="password" minlength="8" placeholder="Password" bind:value={password} />
+    <input id="password" type="password" minlength="8" placeholder="Password" bind:value={password} required/>
     <button type="submit">Register</button>
   </form>
 

@@ -35,6 +35,8 @@
         <input type="password" minlength="8" placeholder="New Password" bind:value={newPassword} />
         <button type="submit">Update Password</button>
     </form>
+
+    <h2>Delete Account - Coming Soon</h2>
 </section>
 {:else}
 <VerifyLogin />

@@ -13,9 +13,9 @@
 
 {#if $user}
 <section id="profile">
-    <h1>Profile</h1>
+    <h1>{$user.name}</h1>
 
-    <h2>Saved Images</h2>
+    <h2>Saved Images <span>(latest 25 images)</span></h2>
 
     <div class="savedImagesContainer">
         {#each data.images as image}
@@ -42,6 +42,11 @@
     #profile h2 {
         font-size: 2rem;
         margin: 1rem 0;
+    }
+
+    span {
+        font-size: 1rem;
+        color: red;
     }
 
     #profile .savedImagesContainer {
