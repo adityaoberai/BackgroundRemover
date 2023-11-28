@@ -4,6 +4,7 @@
     import { user } from "$lib/user";
     import { goto } from "$app/navigation";
     import { createToast } from "$lib/toast";
+    import AlreadyLoggedIn from "../../../components/AlreadyLoggedIn.svelte";
 
     let name = "";
     let email = "";
@@ -20,6 +21,7 @@
     };
 </script>
 
+{#if !$user}
 <section id="authFormContainer">
   <h1>Register</h1>
   <form on:submit={register}>
@@ -46,6 +48,9 @@
     </div>
   </div>
 </section>
+{:else}
+<AlreadyLoggedIn />
+{/if}
 
 <style>
   span {

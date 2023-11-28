@@ -33,6 +33,13 @@ const createUser = () => {
     goto('/app');
   }
 
+  async function loginAnonymous() {
+    if (!isBrowser) return;
+    await account.createAnonymousSession()
+    await init();
+    goto('/app');
+  }
+
   async function logout() {
     if (!isBrowser) return;
     await account.deleteSession('current');
@@ -62,6 +69,7 @@ const createUser = () => {
     subscribe: store.subscribe, 
     register,
     login,
+    loginAnonymous,
     logout,
     init,
     createRecovery,

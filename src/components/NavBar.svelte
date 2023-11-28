@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     import { user } from "$lib/user";
 </script>
 
@@ -7,13 +9,22 @@
         <button class="dropbtn">Menu</button>
         <div class="dropdown-content">
             <a href="/">Home</a>
+            
             {#if $user}
             <a href="/app">Remove Background</a>
+            {/if}
+            
+            {#if $user && $user.email}
             <a href="/profile">Profile</a>
             <a href="/profile/settings">Settings</a>
+            {/if}
+
+            {#if $user}
             <a href="https://github.com/adityaoberai/BackgroundRemover" target="_blank">Star on GitHub</a>
             <a href="/auth/logout">Sign Out</a>
-            {:else}
+            {/if}
+
+            {#if !$user}
             <a href="/auth/login">Login</a>
             <a href="/auth/register">Register</a>
             {/if}

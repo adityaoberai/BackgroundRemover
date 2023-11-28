@@ -54,7 +54,7 @@
             document.querySelector('#outputImage').src = storage.getFilePreview('output', outputImage.$id, 600);
             document.querySelector('.outputImageCard').style.visibility = "visible";
             document.querySelector('.downloadButton').style.display = "block";  
-            createToast('Background removed', 'Image processed and saved to profile', 'green', 0);
+            createToast('Background removed', 'Image processed and ready to view', 'green', 0);
             setTimeout(() => {
                 document.querySelector('.toastPortal').style.display = "none";
             }, 2000);

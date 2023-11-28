@@ -6,6 +6,7 @@
     import { createToast } from "$lib/toast";
     import NavBar from "../../../components/NavBar.svelte";
 	import VerifyLogin from "../../../components/VerifyLogin.svelte";
+	import IsAnonymous from "../../../components/IsAnonymous.svelte";
 
     let oldPassword = "";
     let newPassword = "";
@@ -24,7 +25,7 @@
 
 <NavBar />
 
-{#if $user}
+{#if $user && $user.email}
 <section id="authFormContainer">
     <h1>Settings</h1>
 
@@ -38,6 +39,8 @@
 
     <h2>Delete Account - Coming Soon</h2>
 </section>
+{:else if $user && !$user.email}
+<IsAnonymous />
 {:else}
 <VerifyLogin />
 {/if}
