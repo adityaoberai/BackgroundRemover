@@ -12,14 +12,21 @@
     var outputImage = null;
 
     function onImageSelected() {
-        document.querySelector('.inputImageContainer').style.visibility = "visible";
-        document.querySelector('.outputImageContainer').style.visibility = "hidden";
-        document.querySelector('.outputImageContainer').style.display = "none";
-        document.querySelector('#imageInputButton').style.display = "block";
         var selectedFile = document.querySelector('#imageInputField').files[0];
-        var fileReader = new FileReader();
-        fileReader.readAsDataURL(selectedFile);
-        fileReader.onload = () => document.querySelector("#inputImage").src = fileReader.result;
+
+        if(selectedFile.size > 20971520) {
+            createToast('Error', 'Image size must be less than 20MB', 'red');
+            return;
+        }
+        else {
+            document.querySelector('.inputImageContainer').style.visibility = "visible";
+            document.querySelector('.outputImageContainer').style.visibility = "hidden";
+            document.querySelector('.outputImageContainer').style.display = "none";
+            document.querySelector('#imageInputButton').style.display = "block";
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(selectedFile);
+            fileReader.onload = () => document.querySelector("#inputImage").src = fileReader.result;
+        }
     }
 
     async function getImage() {
@@ -78,7 +85,7 @@
 
     <form class="imageSubmitForm">
         <label for="imageInputField">
-            <strong>Upload Image Here</strong>
+            <strong>Upload Image Here</strong><span>(Size Limit: 20MB)</span>
             <input type="file" accept="image/*" id="imageInputField" on:change={onImageSelected}>
         </label>
     </form>
@@ -133,6 +140,15 @@
         padding: 2rem;
         border: 1px solid #ccc;
         border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    strong {
+        font-size: 1.25rem;
+    }
+
+    span {
+        color: red;
         font-size: 1rem;
     }
 
