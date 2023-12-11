@@ -29,6 +29,21 @@
         }
     }
 
+    async function uploadInputImage() {
+        var image = document.querySelector('#imageInputField').files[0];
+        createToast('Uploading input', 'Uploading image to remove background from', 'blue', 0);
+        var inputImage = await storage.createFile('input',
+            ID.unique(),
+            image
+        );
+        var url = storage.getFileView('input', inputImage.$id).href;
+
+        return {
+            id: inputImage.$id,
+            url: url
+        }
+    }
+
     async function getImage() {
         document.querySelector('.inputImageContainer').style.display = "none";
         document.querySelector('.outputImageContainer').style.display = "flex";
@@ -37,18 +52,21 @@
         document.querySelector('.imageSubmitForm').style.display = "none";
         document.querySelector('.toastPortal').style.display = "flex";
         
-        createToast('Processing image', 'Removing background from the image', 'blue', 0);
-        var image = document.querySelector('#imageInputField').files[0];
+        var inputImage = await uploadInputImage();
+
+        createToast('Processing image', 'Removing background from the image', 'blue', 0); 
         fetch('/app/remove', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/octet-stream'
+                'Content-Type': 'application/json'
             },
-            body: image
+            body: JSON.stringify({
+                imageUrl: inputImage.url
+            })
         })
         .then(res => res.blob())
         .then(blob => {
-            createToast('Uploading output', 'Saving processed image to profile', 'blue', 0);
+            createToast('Uploading output', 'Saving processed image', 'blue', 0);
             return storage.createFile('output', 
                 ID.unique(), 
                 new File([blob], 'output.png'),
@@ -65,6 +83,7 @@
             setTimeout(() => {
                 document.querySelector('.toastPortal').style.display = "none";
             }, 2000);
+            storage.deleteFile('input', inputImage.id);
         })
         .catch(error => {
             console.error(error.message);
@@ -187,7 +206,7 @@
     #inputImage {
         display: block;
         max-height: 50%;
-        max-width: 50%;
+        max-width: 600px;
         height: auto;
         margin: 1rem 0;
     }
