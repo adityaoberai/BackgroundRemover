@@ -18,8 +18,8 @@
     }
 
     async function deleteImage() {
-        await storage.deleteFile('output', image.imageId);
         await imageDb.deleteImage(image.$id);
+        await storage.deleteFile('output', image.imageId);
         invalidateAll();
     }
 </script>
