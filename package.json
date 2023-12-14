@@ -14,7 +14,6 @@
 	"devDependencies": {
 		"@melt-ui/pp": "^0.1.4",
 		"@melt-ui/svelte": "^0.62.1",
-		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.27.6",
 		"@vavite/node-loader": "^3.0.0",
 		"eslint": "^8.28.0",
@@ -30,6 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/adapter-vercel": "^3.1.0",
 		"appwrite": "^13.0.0"
 	}
 }

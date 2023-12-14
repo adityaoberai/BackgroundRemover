@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-vercel';
 import { preprocessMeltUI } from '@melt-ui/pp';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 import sequence from 'svelte-sequential-preprocessor';
@@ -10,7 +10,9 @@ const config = {
 		preprocessMeltUI()
 	]),
 	kit: {
-		adapter: adapter()
+		adapter: adapter({
+			maxDuration: 60,
+		})
 	}
 };
 
