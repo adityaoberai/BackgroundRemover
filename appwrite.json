@@ -1,0 +1,24 @@
+{
+    "projectId": "bgremover",
+    "projectName": "Background Remover",
+    "functions": [
+        {
+            "$id": "deleteAccount",
+            "name": "Delete Account",
+            "runtime": "node-18.0",
+            "execute": ["users"],
+            "events": [],
+            "schedule": "",
+            "timeout": 60,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "path": "functions/Delete Account"
+        }
+    ]
+}
