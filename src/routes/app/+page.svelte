@@ -5,7 +5,7 @@
     import { imageDb } from "$lib/imagedb";
     import { storage } from "$lib/appwrite";
 	import { ID, Permission, Role } from "appwrite";
-	import { createToast } from "$lib/toast";
+	import { createToast, deleteAllToasts } from "$lib/toast";
 	import NavBar from "../../components/NavBar.svelte";
     import VerifyLogin from "../../components/VerifyLogin.svelte";
 
@@ -50,7 +50,6 @@
         document.querySelector('.outputImageContainer').style.visibility = "visible";
         document.querySelector('.resetButton').style.display = "block";
         document.querySelector('.imageSubmitForm').style.display = "none";
-        document.querySelector('.toastPortal').style.display = "flex";
         
         var inputImage = await uploadInputImage();
 
@@ -81,7 +80,7 @@
             document.querySelector('.downloadButton').style.display = "block";  
             createToast('Background removed', 'Image processed and ready to view', 'green', 0);
             setTimeout(() => {
-                document.querySelector('.toastPortal').style.display = "none";
+                deleteAllToasts();
             }, 2000);
             storage.deleteFile('input', inputImage.id);
         })

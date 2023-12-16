@@ -27,8 +27,7 @@ async function deleteImage(documentId) {
   await databases.deleteDocument('imagedb',
     'images',
     documentId
-  ); 
-  location.reload();
+  );
 }
 
 export const imageDb = {

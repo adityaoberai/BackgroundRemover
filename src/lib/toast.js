@@ -12,3 +12,12 @@ export function createToast(title, description, color, closeDelay) {
         type: 'foreground'
     });
 }
+
+export function deleteAllToasts() {
+    let e = document.querySelector(".toastPortal");
+    let child = e.lastElementChild;
+    while (child) {
+        e.removeChild(child);
+        child = e.lastElementChild;
+    }
+}
