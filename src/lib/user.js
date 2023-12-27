@@ -2,7 +2,7 @@
 import { writable } from "svelte/store";
 import { ID } from "appwrite";
 import { goto } from "$app/navigation";
-import { account } from "$lib/appwrite";
+import { account, functions } from "$lib/appwrite";
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -65,6 +65,17 @@ const createUser = () => {
     await account.updatePassword(newPassword, oldPassword);
   }
 
+  async function deleteAccount(userId) {
+    if (!isBrowser) return;
+    var execution = await functions.createExecution(
+      'deleteAccount',
+      userId,
+      false
+    );
+    store.set(null);
+    return execution;
+  }
+
   return {
     subscribe: store.subscribe, 
     register,
@@ -74,7 +85,8 @@ const createUser = () => {
     init,
     createRecovery,
     updateRecovery,
-    updatePassword
+    updatePassword,
+    deleteAccount
   }
 }
 

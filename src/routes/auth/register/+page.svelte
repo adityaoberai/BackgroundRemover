@@ -44,7 +44,7 @@
 
   <div class="footer">
     <div class="authFormTerms">
-      <p>By registering on the website, you allow your images uploaded to be processed by Azure AI Vision and for your registration details and outputted images to be stored in Appwrite Cloud.</p>
+      <p><span style="color: red;">Note: </span>By registering on the website, you allow your images uploaded to be processed by Azure AI Vision and for your registration details and outputted images to be stored in Appwrite Cloud.</p>
     </div>
   </div>
 </section>
