@@ -54,4 +54,30 @@
     #intro button:hover {
         background-color: #555;
     }
+
+    @media screen and (max-width: 1200px) and (min-width: 601px) {
+        #intro img {
+            max-width: 20%;
+            border-radius: 10%;
+            margin: 2rem auto;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        #intro img {
+            max-width: 35%;
+            border-radius: 10%;
+            margin: 2rem auto;
+        }
+
+        #intro h1 {
+            font-size: 3rem;
+            margin: 2rem 2rem;
+        }
+
+        #intro h2 {
+            font-size: 2rem;
+            margin: 2rem 2rem;
+        }
+    }
 </style>
