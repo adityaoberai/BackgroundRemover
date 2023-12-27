@@ -25,6 +25,7 @@ export default async ({ req, res, log, error }) => {
     await users.delete(userId);
     log('User deleted');
 
+    var imagesFound = true;
     var imagesOffset = 0;
     var imagesLimit = 50;
     do{
@@ -38,31 +39,37 @@ export default async ({ req, res, log, error }) => {
         ]
       );
       log(`Images found: ${images.total}`);
+      
+      if(images.total === 0){
+        imagesFound = false;
+        break;
+      }
 
       images.documents.forEach(image => {
         log(JSON.stringify(image));
         storage.deleteFile(
           'output',
-          image.userId
+          image.imageId
         );
+        log(`Image deleted ${image.imageId}`);
         databases.deleteDocument(
           'imagedb',
           'images',
           image.$id
         );
-        log(`Image deleted ${image.imageId}`);
+        log(`Document deleted ${image.$id}`);
         imagesOffset += imagesLimit;
       });
-    } while(images.total > 0);
+    } while(imagesFound);
 
     log('Account deleted successfully');
 
     result.status = 'success';
     result.message = 'Account deleted successfully';
   } catch (e) {
-    error(e);
+    error(JSON.stringify(e));
     result.message = e.message;
   }
-
+  log(JSON.stringify(result));
   return res.json(result);
 };
