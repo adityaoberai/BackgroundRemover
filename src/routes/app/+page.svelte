@@ -142,8 +142,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 90vw;
-        margin: 0 5vw;
+        width: 100vw;
+        margin: 0 auto;
     } 
 
     #removeBackground h1 {
@@ -209,7 +209,7 @@
     #inputImage {
         display: block;
         max-height: 50%;
-        max-width: 600px;
+        max-width: 30%;
         height: auto;
         margin: 1rem 0;
     }
@@ -244,5 +244,25 @@
         max-width: 60%;
         height: auto;
         margin: 1rem 0;
+    }
+
+    @media screen and (max-width: 600px) {
+        #inputImage {
+            display: block;
+            max-height: 50%;
+            max-width: 75%;
+            height: auto;
+            margin: 1rem 0;
+        }
+    }
+
+    @media screen and (min-width: 601px) and (max-width: 1200px) {
+        #inputImage {
+            display: block;
+            max-height: 50%;
+            max-width: 50%;
+            height: auto;
+            margin: 1rem 0;
+        }
     }
 </style>

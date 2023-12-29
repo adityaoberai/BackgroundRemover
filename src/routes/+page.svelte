@@ -13,6 +13,7 @@
     {:else}
         <button on:click={() => goto("/auth/login")}>Login</button>
     {/if}
+    <a href="http://github.com/adityaoberai/BackgroundRemover" target="_blank" rel="noopener noreferrer">Find Us On GitHub</a>
 </section>
 
 <style>
@@ -21,7 +22,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100vh;    
+        height: 100vh;
     }
 
     #intro img {
@@ -53,6 +54,21 @@
 
     #intro button:hover {
         background-color: #555;
+    }
+
+    #intro a {
+        margin: 1rem;
+        padding: 0.5rem;
+        font-size: 1.25rem;
+        border:  1px solid #333;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333;
+    }
+
+    #intro a:hover {
+        background-color: #555;
+        color: #ccc;
     }
 
     @media screen and (max-width: 1200px) and (min-width: 601px) {

@@ -37,7 +37,6 @@
         display: flex;
         justify-content: flex-start;
         padding: 1rem;
-        width: 100%;
         background-color: #333;
     }
 
