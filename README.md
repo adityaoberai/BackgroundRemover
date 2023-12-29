@@ -41,7 +41,7 @@ There are some necessary steps to get the project up and running.
 | - | - | - |
 | Purpose | Contains images to be processed, have their backgrounds removed, and get deleted after | Contains images that have had their backgrounds removed |
 | Id | input | output |
-| Permissions |  |  |
+| Permissions | ![image](https://github.com/adityaoberai/BackgroundRemover/assets/31401437/c74a7f7a-df1b-4b5a-8419-22c171460fda) | ![image](https://github.com/adityaoberai/BackgroundRemover/assets/31401437/677d0df5-628c-4a27-b8b3-8c456ac6a73e) |
 
 > Keep both your bucket Ids stored with you for later.
 
@@ -53,6 +53,10 @@ There are some necessary steps to get the project up and running.
 | - | - | - | - |
 | userId | string | 255 | Yes |
 | fileId | string | 255 | Yes |
+
+- Set the permissions as visible in the image
+![image](https://github.com/adityaoberai/BackgroundRemover/assets/31401437/c48e9994-9add-4cb8-952c-bb2cc626dac0)
+
 
 > Keep the database Id and collection Id stored with you for later.
 
@@ -85,7 +89,7 @@ Rename the `.env.example` file to `.env` and add all the necessary environment v
 
 The `svelte.config.js` file is currently configured for Vercel since that is where the application is deployed and a custom timeout is configured for server actions.
 
-### Non Vercel PaaS platforms (Cloudflare, Azure, etc.)
+### Other PaaS platforms (Cloudflare, Azure, etc.)
 
 - Install `@sveltejs/adapter-auto` using npm/pnpm/yarn
 - Replace all the code in the `svelte.config.js` file with the following:
