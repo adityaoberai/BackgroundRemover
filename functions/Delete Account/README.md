@@ -1,35 +1,6 @@
 # Delete Account
 
-## 🧰 Usage
-
-### GET /
-
-- Returns a "Hello, World!" message.
-
-**Response**
-
-Sample `200` Response:
-
-```text
-Hello, World!
-```
-
-### POST, PUT, PATCH, DELETE /
-
-- Returns a "Learn More" JSON response.
-
-**Response**
-
-Sample `200` Response:
-
-```json
-{
-  "motto": "Build like a team of hundreds_",
-  "learn": "https://appwrite.io/docs",
-  "connect": "https://appwrite.io/discord",
-  "getInspired": "https://builtwith.appwrite.io"
-}
-```
+Deletes an account, related documents and files in the Background Remover Appwrite project
 
 ## ⚙️ Configuration
 
@@ -39,8 +10,12 @@ Sample `200` Response:
 | Entrypoint        | `src/main.js` |
 | Build Commands    | `npm install` |
 | Permissions       | `any`         |
-| Timeout (Seconds) | 15            |
+| Timeout (Seconds) | 60            |
 
 ## 🔒 Environment Variables
 
-No environment variables required.
+`APPWRITE_OUTPUT_IMAGES_BUCKET_ID`: Id of storage bucket containing output images
+`APPWRITE_API_KEY`: Appwrite API key with `user.read`, `user.write`, `documents.read`, `documents.write`, `files.read`, and `files.write` scopes
+`APPWRITE_PROJECT_ID`: Id of Appwrite project for the Background Remover app
+`APPWRITE_DATABASE_ID`: Id of Appwrite database containing collection of user and file ids
+`APPWRITE_COLLECTION_ID`: Id of Appwrite containing containing user and file Ids for user profiles

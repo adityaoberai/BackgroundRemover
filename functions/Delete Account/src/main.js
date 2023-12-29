@@ -3,7 +3,7 @@ import { Client, Databases, Storage, Users, Query } from 'node-appwrite';
 export default async ({ req, res, log, error }) => {
   const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
-    .setProject('bgremover')
+    .setProject(process.env.APPWRITE_PROJECT_ID)
     .setKey(process.env.APPWRITE_API_KEY);
 
   const users = new Users(client);
@@ -30,8 +30,8 @@ export default async ({ req, res, log, error }) => {
     var imagesLimit = 50;
     do{
       let images = await databases.listDocuments(
-        'imagedb',
-        'images',
+        process.env.APPWRITE_DATABASE_ID,
+        process.env.APPWRITE_COLLECTION_ID,
         [
           Query.equal('userId', [ userId ]),
           Query.limit(imagesLimit),
@@ -48,7 +48,7 @@ export default async ({ req, res, log, error }) => {
       images.documents.forEach(image => {
         log(JSON.stringify(image));
         storage.deleteFile(
-          'output',
+          process.env.APPWRITE_OUTPUT_IMAGES_BUCKET_ID,
           image.imageId
         );
         log(`Image deleted ${image.imageId}`);
