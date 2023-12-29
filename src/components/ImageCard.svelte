@@ -4,22 +4,25 @@
 	import { storage } from "$lib/appwrite";
 	import { imageDb } from "$lib/imagedb";
 	import { invalidateAll } from "$app/navigation";
+    import { PUBLIC_APPWRITE_OUTPUT_IMAGES_BUCKET_ID } from '$env/static/public';
     
+    const outputBucketId = PUBLIC_APPWRITE_OUTPUT_IMAGES_BUCKET_ID;
+
     export let image;
 
-    var imageSrc = storage.getFilePreview('output', image.imageId, 250);
+    var imageSrc = storage.getFilePreview(outputBucketId, image.imageId, 250);
 
     async function viewImage() {
-        window.open(storage.getFileView('output', image.imageId), '_blank')
+        window.open(storage.getFileView(outputBucketId, image.imageId), '_blank')
     }
 
     async function downloadImage() {
-        window.open(storage.getFileDownload('output', image.imageId));
+        window.open(storage.getFileDownload(outputBucketId, image.imageId));
     }
 
     async function deleteImage() {
         await imageDb.deleteImage(image.$id);
-        await storage.deleteFile('output', image.imageId);
+        await storage.deleteFile(outputBucketId, image.imageId);
         invalidateAll();
     }
 </script>

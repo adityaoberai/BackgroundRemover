@@ -8,6 +8,10 @@
 	import { createToast, deleteAllToasts } from "$lib/toast";
 	import NavBar from "../../components/NavBar.svelte";
     import VerifyLogin from "../../components/VerifyLogin.svelte";
+    import { PUBLIC_APPWRITE_OUTPUT_IMAGES_BUCKET_ID, PUBLIC_APPWRITE_INPUT_IMAGES_BUCKET_ID } from '$env/static/public';
+
+    const inputBucketId = PUBLIC_APPWRITE_INPUT_IMAGES_BUCKET_ID;
+    const outputBucketId = PUBLIC_APPWRITE_OUTPUT_IMAGES_BUCKET_ID;
 
     var outputImage = null;
 
@@ -32,11 +36,11 @@
     async function uploadInputImage() {
         var image = document.querySelector('#imageInputField').files[0];
         createToast('Uploading input', 'Uploading image to remove background from', 'blue', 0);
-        var inputImage = await storage.createFile('input',
+        var inputImage = await storage.createFile(inputBucketId,
             ID.unique(),
             image
         );
-        var url = storage.getFileView('input', inputImage.$id).href;
+        var url = storage.getFileView(inputBucketId, inputImage.$id).href;
 
         return {
             id: inputImage.$id,
@@ -66,7 +70,7 @@
         .then(res => res.blob())
         .then(blob => {
             createToast('Uploading output', 'Saving processed image', 'blue', 0);
-            return storage.createFile('output', 
+            return storage.createFile(outputBucketId, 
                 ID.unique(), 
                 new File([blob], 'output.png'),
                 [Permission.write(Role.user($user.$id)), Permission.read(Role.user($user.$id))]
@@ -75,14 +79,14 @@
         .then(createdImage => {
             outputImage = createdImage;
             imageDb.addImage($user.$id, outputImage.$id);
-            document.querySelector('#outputImage').src = storage.getFilePreview('output', outputImage.$id, 600);
+            document.querySelector('#outputImage').src = storage.getFilePreview(outputBucketId, outputImage.$id, 600);
             document.querySelector('.outputImageCard').style.visibility = "visible";
             document.querySelector('.downloadButton').style.display = "block";  
             createToast('Background removed', 'Image processed and ready to view', 'green', 0);
             setTimeout(() => {
                 deleteAllToasts();
             }, 2000);
-            storage.deleteFile('input', inputImage.id);
+            storage.deleteFile(inputBucketId, inputImage.id);
         })
         .catch(error => {
             console.error(error.message);
@@ -91,7 +95,7 @@
     }
 
     async function downloadImage() {
-        window.open(storage.getFileDownload('output', outputImage.$id));
+        window.open(storage.getFileDownload(outputBucketId, outputImage.$id));
     }    
 </script>
 
