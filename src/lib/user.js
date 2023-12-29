@@ -3,6 +3,7 @@ import { writable } from "svelte/store";
 import { ID } from "appwrite";
 import { goto } from "$app/navigation";
 import { account, functions } from "$lib/appwrite";
+import { PUBLIC_APPWRITE_DELETE_ACCOUNT_FUNCTION_ID } from '$env/static/public';
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -68,7 +69,7 @@ const createUser = () => {
   async function deleteAccount(userId) {
     if (!isBrowser) return;
     var execution = await functions.createExecution(
-      'deleteAccount',
+      PUBLIC_APPWRITE_DELETE_ACCOUNT_FUNCTION_ID,
       userId,
       false
     );
