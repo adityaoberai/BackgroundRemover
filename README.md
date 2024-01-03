@@ -1,10 +1,10 @@
-[![RepoRater](https://repo-rater.eddiehub.io/api/badge?owner=adityaoberai&name=BackgroundRemover)](https://repo-rater.eddiehub.io/rate?owner=adityaoberai&name=BackgroundRemover&format=percentage)
-
 <a href="https://bgremover.in" target="_blank">
     <img src="https://github.com/adityaoberai/BackgroundRemover/assets/31401437/d54502e9-0fe4-441e-99d0-9e117ab0e464" alt="Background Remover" width="1000">
 </a>
 
 # Background Remover
+
+[![RepoRater](https://repo-rater.eddiehub.io/api/badge?owner=adityaoberai&name=BackgroundRemover)](https://repo-rater.eddiehub.io/rate?owner=adityaoberai&name=BackgroundRemover&format=percentage)
 
 ## Description
 
