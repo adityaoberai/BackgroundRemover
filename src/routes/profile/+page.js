@@ -1,7 +1,7 @@
-import { imageDb } from '$lib/imagedb';
+import { db } from '$lib/db';
 
 export async function load() {
 	return {
-		images: await imageDb.listImages()
+		images: await db.listImages()
 	};
 }

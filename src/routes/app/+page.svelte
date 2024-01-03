@@ -2,9 +2,8 @@
 // @ts-nocheck
 
     import { user } from "$lib/user";
-    import { imageDb } from "$lib/imagedb";
-    import { storage } from "$lib/appwrite";
-	import { ID, Permission, Role } from "appwrite";
+    import { db } from "$lib/db";
+    import { images } from "$lib/storage";
 	import { createToast, deleteAllToasts } from "$lib/toast";
 	import NavBar from "../../components/NavBar.svelte";
     import VerifyLogin from "../../components/VerifyLogin.svelte";
@@ -36,11 +35,8 @@
     async function uploadInputImage() {
         var image = document.querySelector('#imageInputField').files[0];
         createToast('Uploading input', 'Uploading image to remove background from', 'blue', 0);
-        var inputImage = await storage.createFile(inputBucketId,
-            ID.unique(),
-            image
-        );
-        var url = storage.getFileView(inputBucketId, inputImage.$id).href;
+        var inputImage = await images.uploadInputImage(inputBucketId, image);
+        var url = images.viewImage(inputBucketId, inputImage.$id);
 
         return {
             id: inputImage.$id,
@@ -70,23 +66,19 @@
         .then(res => res.blob())
         .then(blob => {
             createToast('Uploading output', 'Saving processed image', 'blue', 0);
-            return storage.createFile(outputBucketId, 
-                ID.unique(), 
-                new File([blob], 'output.png'),
-                [Permission.write(Role.user($user.$id)), Permission.read(Role.user($user.$id))]
-            );
+            return images.uploadOutputImage(outputBucketId, blob, $user.$id);
         })
         .then(createdImage => {
             outputImage = createdImage;
-            imageDb.addImage($user.$id, outputImage.$id);
-            document.querySelector('#outputImage').src = storage.getFilePreview(outputBucketId, outputImage.$id, 600);
+            db.addImage($user.$id, outputImage.$id);
+            document.querySelector('#outputImage').src = images.previewImage(outputBucketId, outputImage.$id, 600);
             document.querySelector('.outputImageCard').style.visibility = "visible";
             document.querySelector('.downloadButton').style.display = "block";  
             createToast('Background removed', 'Image processed and ready to view', 'green', 0);
             setTimeout(() => {
                 deleteAllToasts();
             }, 2000);
-            storage.deleteFile(inputBucketId, inputImage.id);
+            images.deleteImage(inputBucketId, inputImage.id);
         })
         .catch(error => {
             console.error(error.message);
@@ -95,7 +87,7 @@
     }
 
     async function downloadImage() {
-        window.open(storage.getFileDownload(outputBucketId, outputImage.$id));
+        window.open(images.downloadImage(outputBucketId, outputImage.$id));
     }    
 </script>
 

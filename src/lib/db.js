@@ -34,7 +34,7 @@ async function deleteImage(documentId) {
   );
 }
 
-export const imageDb = {
+export const db = {
   listImages,
   addImage,
   deleteImage
