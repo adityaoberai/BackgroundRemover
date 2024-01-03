@@ -3,7 +3,6 @@
 
 	import { images } from "$lib/storage";
 	import { db } from "$lib/db";
-    import { invalidateAll } from "$app/navigation";
     import { PUBLIC_APPWRITE_OUTPUT_IMAGES_BUCKET_ID } from '$env/static/public';
     
     const outputBucketId = PUBLIC_APPWRITE_OUTPUT_IMAGES_BUCKET_ID;
@@ -23,7 +22,7 @@
     async function deleteImage() {
         await db.deleteImage(image.$id);
         await images.deleteImage(outputBucketId, image.imageId);
-        invalidateAll();
+        location.reload();
     }
 </script>
 
