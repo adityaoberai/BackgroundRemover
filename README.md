@@ -4,6 +4,8 @@
 
 # Background Remover
 
+[![RepoRater](https://repo-rater.eddiehub.io/api/badge?owner=adityaoberai&name=BackgroundRemover)](https://repo-rater.eddiehub.io/rate?owner=adityaoberai&name=BackgroundRemover&format=percentage)
+
 ## Description
 
 Background Remover is a SvelteKit app that uses Appwrite Cloud and Azure AI to remove the background from your headshots (and other images).
