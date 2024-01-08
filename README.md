@@ -28,13 +28,13 @@ There are some necessary steps to get the project up and running.
 
 > Keep the endpoint and API key stored with you for later.
 
-### Appwrite Cloud 
+### Appwrite Cloud
 
 #### Project
 
 - Create an account on [Appwrite Cloud](https://cloud.appwrite.io/register) (or sign in if you have one)
 - Create a project and add your web app (URL)
-    - Adding the exact URL is necessary for the reset password link functionality
+  - Adding the exact URL is necessary for the reset password link functionality
 - Create an API key with `user.read`, `user.write`, `documents.read`, `documents.write`, `files.read`, and `files.write` scopes
 
 > Keep the project ID and API key stored with you for later.
@@ -43,10 +43,10 @@ There are some necessary steps to get the project up and running.
 
 - Create two buckets, one for input images and one for output images
 
-| | Input Images Bucket | Output Images Bucket |
-| - | - | - |
-| Purpose | Contains images to be processed, have their backgrounds removed, and get deleted after | Contains images that have had their backgrounds removed |
-| Id | input | output |
+|             | Input Images Bucket                                                                                              | Output Images Bucket                                                                                             |
+| ----------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Purpose     | Contains images to be processed, have their backgrounds removed, and get deleted after                           | Contains images that have had their backgrounds removed                                                          |
+| Id          | input                                                                                                            | output                                                                                                           |
 | Permissions | ![image](https://github.com/adityaoberai/BackgroundRemover/assets/31401437/c74a7f7a-df1b-4b5a-8419-22c171460fda) | ![image](https://github.com/adityaoberai/BackgroundRemover/assets/31401437/677d0df5-628c-4a27-b8b3-8c456ac6a73e) |
 
 > Keep both your bucket Ids stored with you for later.
@@ -55,14 +55,13 @@ There are some necessary steps to get the project up and running.
 
 - Create a database with one collection, containing the following attributes
 
-| Key | Type | Size | Required |
-| - | - | - | - |
-| userId | string | 255 | Yes |
-| fileId | string | 255 | Yes |
+| Key    | Type   | Size | Required |
+| ------ | ------ | ---- | -------- |
+| userId | string | 255  | Yes      |
+| fileId | string | 255  | Yes      |
 
 - Set the permissions as visible in the image
-![image](https://github.com/adityaoberai/BackgroundRemover/assets/31401437/c48e9994-9add-4cb8-952c-bb2cc626dac0)
-
+  ![image](https://github.com/adityaoberai/BackgroundRemover/assets/31401437/c48e9994-9add-4cb8-952c-bb2cc626dac0)
 
 > Keep the database Id and collection Id stored with you for later.
 
@@ -108,10 +107,7 @@ import sequence from 'svelte-sequential-preprocessor';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	preprocess: sequence([
-		vitePreprocess(),
-		preprocessMeltUI()
-	])
+	preprocess: sequence([vitePreprocess(), preprocessMeltUI()])
 };
 
 export default config;

@@ -1,11 +1,11 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "command": "npm vavite-loader vite dev --port 3000; npm run dev",
-            "name": "Launch SvelteKit server",
-            "request": "launch",
-            "type": "node-terminal"
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"command": "npm vavite-loader vite dev --port 3000; npm run dev",
+			"name": "Launch SvelteKit server",
+			"request": "launch",
+			"type": "node-terminal"
+		}
+	]
 }

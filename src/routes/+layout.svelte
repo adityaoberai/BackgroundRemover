@@ -1,6 +1,6 @@
 <script>
-    import '../styles.css';
-    import Toaster from '../components/Toaster.svelte';
+	import '../styles.css';
+	import Toaster from '../components/Toaster.svelte';
 </script>
 
 <Toaster />

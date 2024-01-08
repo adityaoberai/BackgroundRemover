@@ -1,89 +1,89 @@
 * {
-    padding: 0;
-    margin: 0;
+	padding: 0;
+	margin: 0;
 }
 
 html {
-    scroll-behavior: smooth;
-    font-family: Inter, sans-serif;
-    width: 100vw;
+	scroll-behavior: smooth;
+	font-family: Inter, sans-serif;
+	width: 100vw;
 }
 
 body {
-    width: 100vw;
+	width: 100vw;
 }
 
 h1 {
-    text-align: center;
+	text-align: center;
 }
 
 h2 {
-    text-align: center;
+	text-align: center;
 }
 
 /* Auth pages CSS */
 
 #authFormContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
 }
 
 #authFormContainer h1 {
-    font-size: 2rem;
-    margin: 1rem;
+	font-size: 2rem;
+	margin: 1rem;
 }
 
 #authFormContainer h2 {
-    font-size: 1.5rem;
-    margin: 1rem;
+	font-size: 1.5rem;
+	margin: 1rem;
 }
 
 #authFormContainer form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	width: 50%;
 }
 
 #authFormContainer form input {
-    margin: 1rem;
-    padding: 0.5rem 2rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 67%;
+	margin: 1rem;
+	padding: 0.5rem 2rem;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	width: 67%;
 }
 
 #authFormContainer button {
-    font-size: 1rem;
-    margin: 1rem;
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    background-color: #333;
-    color: #ccc;
-    border: none;
-    cursor: pointer;
-    margin: 1rem 0;
+	font-size: 1rem;
+	margin: 1rem;
+	padding: 1rem 2rem;
+	border-radius: 5px;
+	background-color: #333;
+	color: #ccc;
+	border: none;
+	cursor: pointer;
+	margin: 1rem 0;
 }
 
 #authFormContainer button:hover {
-    background-color: #555;
+	background-color: #555;
 }
 
 #authFormContainer a {
-    margin: 1rem;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border:  1px solid #333;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #333;
+	margin: 1rem;
+	padding: 0.5rem;
+	font-size: 1rem;
+	border: 1px solid #333;
+	border-radius: 5px;
+	text-decoration: none;
+	color: #333;
 }
 
 #authFormContainer a:hover {
-    background-color: #555;
-    color: #ccc;
+	background-color: #555;
+	color: #ccc;
 }
