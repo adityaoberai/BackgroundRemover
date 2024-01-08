@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { ID, Query } from "appwrite";
+import { ID, Query, Permission, Role } from "appwrite";
 import { databases } from "$lib/appwrite";
 import { PUBLIC_APPWRITE_COLLECTION_ID, PUBLIC_APPWRITE_DATABASE_ID } from '$env/static/public';
 
@@ -23,7 +23,8 @@ async function addImage(userId, imageId) {
     {
       userId: userId,
       imageId: imageId
-    }
+    },
+    [Permission.write(Role.user(userId)), Permission.read(Role.user(userId))]
   );
 }
 
